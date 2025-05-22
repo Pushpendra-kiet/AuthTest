@@ -1,6 +1,7 @@
 const express = require('express');
 const session = require('express-session');
 const { OAuth2Client } = require('google-auth-library');
+const crypto = require('crypto');
 const path = require('path');
 require('dotenv').config();
 //hello
@@ -18,7 +19,7 @@ const client = new OAuth2Client(
 // Middleware for handling sessions
 app.use(
   session({
-    secret: process.env.AUTH_SESSION_SECRET,
+    secret: crypto.randomBytes(64).toString('hex'),
     resave: false,
     saveUninitialized: true,
   })
