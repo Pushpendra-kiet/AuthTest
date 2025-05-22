@@ -17,13 +17,13 @@ const client = new OAuth2Client(
 );
 
 // Middleware for handling sessions
-app.use(
-  session({
-    secret: crypto.randomBytes(64).toString('hex'),
-    resave: false,
-    saveUninitialized: true,
-  })
-);
+// app.use(
+//   session({
+//     secret: crypto.randomBytes(64).toString('hex'),
+//     resave: false,
+//     saveUninitialized: true,
+//   })
+// );
 
 // Set EJS as the template engine
 app.set('view engine', 'ejs');
