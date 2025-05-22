@@ -7,22 +7,22 @@ require('dotenv').config();
 const app = express();
 const PORT = 3000;
 
-console.log(process.env.AUTH_CLIENT_ID)
 
-// const client = new OAuth2Client(
-//   process.env.AUTH_CLIENT_ID,
-//   process.env.process.env.AUTH_CLIENT_SECRET,
-//   process.env.GOOGLE_REDIRECT_URI
-// );
 
-// // Middleware for handling sessions
-// app.use(
-//   session({
-//     secret: process.env.SESSION_SECRET,
-//     resave: false,
-//     saveUninitialized: true,
-//   })
-// );
+const client = new OAuth2Client(
+  process.env.AUTH_CLIENT_ID,
+  process.env.process.env.AUTH_CLIENT_SECRET,
+  process.env.GOOGLE_REDIRECT_URI
+);
+
+// Middleware for handling sessions
+app.use(
+  session({
+    secret: process.env.AUTH_SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 // Set EJS as the template engine
 app.set('view engine', 'ejs');
