@@ -40,58 +40,58 @@ app.get('/', (req, res) => {
   }
 });
 
-// // Google Login Route
-// app.get('/auth/google', (req, res) => {
-//   const url = client.generateAuthUrl({
-//     access_type: 'offline',
-//     scope: ['profile', 'email'],
-//   });
-//   res.redirect(url);
-// });
+// Google Login Route
+app.get('/auth/google', (req, res) => {
+  const url = client.generateAuthUrl({
+    access_type: 'offline',
+    scope: ['profile', 'email'],
+  });
+  res.redirect(url);
+});
 
-// // Google OAuth Callback Route
-// app.get('/auth/google/callback', async (req, res) => {
-//   const code = req.query.code;
+// Google OAuth Callback Route
+app.get('/auth/google/callback', async (req, res) => {
+  const code = req.query.code;
 
-//   if (!code) {
-//     return res.status(400).send('Invalid request. No authorization code provided.');
-//   }
+  if (!code) {
+    return res.status(400).send('Invalid request. No authorization code provided.');
+  }
 
-//   try {
-//     // Exchange authorization code for access token
-//     const { tokens } = await client.getToken(code);
+  try {
+    // Exchange authorization code for access token
+    const { tokens } = await client.getToken(code);
 
-//     // Verify the token and get user information
-//     const ticket = await client.verifyIdToken({
-//       idToken: tokens.id_token,
-//       audience: process.env.AUTH_CLIENT_ID,
-//     });
+    // Verify the token and get user information
+    const ticket = await client.verifyIdToken({
+      idToken: tokens.id_token,
+      audience: process.env.AUTH_CLIENT_ID,
+    });
 
-//     const payload = ticket.getPayload();
+    const payload = ticket.getPayload();
 
-//     // Save user info in session
-//     req.session.user = {
-//       name: payload.name,
-//       email: payload.email,
-//       picture: payload.picture,
-//     };
+    // Save user info in session
+    req.session.user = {
+      name: payload.name,
+      email: payload.email,
+      picture: payload.picture,
+    };
 
-//     res.redirect('/');
-//   } catch (error) {
-//     console.error('Error during Google OAuth callback:', error);
-//     res.status(500).send('Authentication failed.');
-//   }
-// });
+    res.redirect('/');
+  } catch (error) {
+    console.error('Error during Google OAuth callback:', error);
+    res.status(500).send('Authentication failed.');
+  }
+});
 
-// // Logout Route
-// app.get('/auth/logout', (req, res) => {
-//   req.session.destroy((err) => {
-//     if (err) {
-//       return res.status(500).send('Failed to logout.');
-//     }
-//     res.redirect('/');
-//   });
-// });
+// Logout Route
+app.get('/auth/logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).send('Failed to logout.');
+    }
+    res.redirect('/');
+  });
+});
 
 // Start the server
 app.listen(PORT, () => {
