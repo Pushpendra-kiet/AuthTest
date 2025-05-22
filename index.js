@@ -29,20 +29,16 @@ app.use(
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+
+
+// Home Route
 app.get('/', (req, res) => {
-
+  if (req.session.user) {
+    res.render('profile', { user: req.session.user });
+  } else {
     res.render('index');
-
+  }
 });
-
-// // Home Route
-// app.get('/', (req, res) => {
-//   if (req.session.user) {
-//     res.render('profile', { user: req.session.user });
-//   } else {
-//     res.render('index');
-//   }
-// });
 
 // // Google Login Route
 // app.get('/auth/google', (req, res) => {
