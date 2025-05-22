@@ -12,7 +12,7 @@ const PORT = 3000;
 
 const client = new OAuth2Client(
   process.env.AUTH_CLIENT_ID,
-  process.env.process.AUTH_CLIENT_SECRET,
+  process.env.AUTH_CLIENT_SECRET,
   process.env.GOOGLE_REDIRECT_URI
 );
 
